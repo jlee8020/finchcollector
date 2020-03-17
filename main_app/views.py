@@ -1,7 +1,22 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from .models import Finch
 
+#CVBs
+class FinchCreate(CreateView):
+  model = Finch
+  fields = ['name', 'breed', 'description', 'age']
+  success_url = '/finches/'
+
+class FinchUpdate(UpdateView):
+    model = Finch
+    fields = '__all__'
+    success_url = '/finches/'
+
+class FinchDelete(DeleteView):
+  model = Finch
+  success_url = '/finches/'
 
 class Finches:
   def __init__(self, name, breed, description, age):
@@ -9,6 +24,7 @@ class Finches:
     self.breed = breed
     self.description = description
     self.age = age
+    
 
 finches = [
     Finch('Lexie', 'blackrosy', 'Silly little Finch', 2),
@@ -29,5 +45,5 @@ def finches_index(request):
     return render(request, 'finches/index.html', {'finches': finches})
 
 def finches_detail(request, finch_id):
-    finches = Finch.objects.get(id=finch_id)
+    finch = Finch.objects.get(id=finch_id)
     return render(request, 'finches/detail.html', {'finch': finch}) 
