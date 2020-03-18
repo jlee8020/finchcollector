@@ -15,6 +15,13 @@
       {% else %}
         <p>Age: Finchy</p>
       {% endif %}
+      <p>Last Fed:</p>
+      {% for feeding in finch.feeding_set.all %}
+        <tr>
+          <td>{{feeding.date}}</td>
+          <td>{{feeding.get_meal_display}}</td>
+        </tr>
+      {% endfor %}
     </div>
   </div>
 {% endfor %}
