@@ -15,12 +15,14 @@
       {% else %}
         <p>Age: Finchy</p>
       {% endif %}
-      <p>Last Fed:</p>
       {% for feeding in finch.feeding_set.all %}
+      <p>Last Fed:</p>
         <tr>
-          <td>{{feeding.date}}</td>
-          <td>{{feeding.get_meal_display}}</td>
+          <p>{% with last_feeding=finch.feeding_set.last %}</p>
+          <p>{{last_feeding.date}}</p>
+          <p>{{feeding.get_meal_display}}</p>
         </tr>
+      {% endwith %}
       {% endfor %}
     </div>
   </div>
